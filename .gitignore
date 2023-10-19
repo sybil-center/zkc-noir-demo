@@ -53,3 +53,4 @@ crs
 .DS_Store
 artifacts
 .yarn/
+/.idea

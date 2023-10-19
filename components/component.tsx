@@ -5,6 +5,7 @@ import { BarretenbergBackend } from "@noir-lang/backend_barretenberg";
 import circuit from "../circuits/target/noirstarter.json";
 import { getZkCred } from "../service/get-zk-cred";
 
+
 type GetZkCredType = Awaited<ReturnType<typeof getZkCred>>
 
 function Component() {
@@ -38,38 +39,11 @@ function Component() {
       }
     });
 
-    // const verifyOnChain = new Promise(async (resolve, reject) => {
-    //   if (!proof) return reject(new Error('No proof'));
-    //   if (!window.ethereum) return reject(new Error('No ethereum provider'));
-    //   try {
-    //     const ethers = new Ethers();
-    //
-    //     const publicInputs = proof.slice(0, 32);
-    //     const slicedProof = proof.slice(32);
-    //
-    //     const verification = await ethers.contract.verify(slicedProof, [publicInputs]);
-    //     resolve(verification);
-    //   } catch (err) {
-    //     console.log(err);
-    //     reject(new Error("Couldn't verify proof on-chain"));
-    //   }
-    // });
-
     toast.promise(verifyOffChain, {
       pending: "Verifying proof off-chain...",
       success: "Proof verified off-chain!",
       error: "Error verifying proof",
     });
-
-    // toast.promise(verifyOnChain, {
-    //   pending: 'Verifying proof on-chain...',
-    //   success: 'Proof verified on-chain!',
-    //   error: {
-    //     render({ data }: any) {
-    //       return `Error: ${data.message}`;
-    //     },
-    //   },
-    // });
   };
 
   // Verifier the proof if there's one in state
