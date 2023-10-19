@@ -1,7 +1,7 @@
-import { ethers } from 'ethers';
-import addresses from './addresses.json';
-import artifacts from '../artifacts/circuits/contract/noirstarter/plonk_vk.sol/UltraVerifier.json';
-import { toast } from 'react-toastify';
+import { ethers } from "ethers";
+import addresses from "./addresses.json";
+import artifacts from "../artifacts/circuits/contract/noirstarter/plonk_vk.sol/UltraVerifier.json";
+import { toast } from "react-toastify";
 
 declare global {
   interface Window {
@@ -18,34 +18,39 @@ class Ethers {
 
   // constructor instantiantes the underlying ethers provider and signer
   // and connects to the contract
-  constructor() {
+  private constructor() {
     this.provider = new ethers.providers.Web3Provider(window.ethereum);
     this.utils = ethers.utils;
     this.signer = this.provider.getSigner();
 
     this.contract = new ethers.Contract(addresses.verifier, artifacts.abi, this.signer);
-    this.connect();
   }
 
-  async connect() {
-    if (typeof window.ethereum !== 'undefined') {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
+  static async init(): Promise<Ethers> {
+    const eth = new Ethers();
+    await eth.connect();
+    return eth;
+  }
 
-      const currentNetworkId = parseInt(await window.ethereum.request({ method: 'net_version' }));
+  private async connect() {
+    if (typeof window.ethereum !== "undefined") {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+
+      const currentNetworkId = parseInt(await window.ethereum.request({ method: "net_version" }));
       if (currentNetworkId !== addresses.chainId) {
         try {
           await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
+            method: "wallet_switchEthereumChain",
             params: [{ chainId: `0x${addresses.chainId.toString(16)}` }],
           });
         } catch (error) {
-          console.error('Error switching network:', error);
+          console.error("Error switching network:", error);
           if (error.code === 4902) {
             toast(`Please add the mumbai network to your MetaMask wallet`, {
-              type: 'error',
+              type: "error",
             });
           } else {
-            console.error('User rejected the request.');
+            console.error("User rejected the request.");
           }
         }
       }

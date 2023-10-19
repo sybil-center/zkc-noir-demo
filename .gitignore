@@ -3,6 +3,8 @@
 .env
 .tmp
 
+.idea
+
 # dependencies
 /node_modules
 /.pnp

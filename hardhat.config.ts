@@ -1,15 +1,16 @@
-import '@nomicfoundation/hardhat-toolbox';
-import '@nomiclabs/hardhat-ethers';
-import '@nomicfoundation/hardhat-chai-matchers';
+import "@nomicfoundation/hardhat-toolbox";
+import "@nomiclabs/hardhat-ethers";
+import "@nomicfoundation/hardhat-chai-matchers";
 
-import { HardhatUserConfig } from 'hardhat/config';
+import { HardhatUserConfig } from "hardhat/config";
 
-import * as dotenv from 'dotenv';
+import * as dotenv from "dotenv";
+
 dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: '0.8.18',
+    version: "0.8.18",
     settings: {
       optimizer: { enabled: true, runs: 5000 },
     },
@@ -24,7 +25,7 @@ const config: HardhatUserConfig = {
       accounts: [process.env.SEPOLIA_DEPLOYER_PRIVATE_KEY as string],
     },
     localhost: {
-      url: 'http://127.0.0.1:8545',
+      url: "http://127.0.0.1:8545",
     },
     hardhat: {
       mining: {
@@ -34,7 +35,7 @@ const config: HardhatUserConfig = {
     },
   },
   paths: {
-    sources: './circuits/contract/noirstarter',
+    sources: "./circuits/contract/noirstarter",
   },
 };
 
