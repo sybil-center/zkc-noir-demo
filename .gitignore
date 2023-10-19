@@ -3,6 +3,8 @@
 .env
 .tmp
 
+.idea
+
 # dependencies
 /node_modules
 /.pnp
@@ -53,4 +55,3 @@ crs
 .DS_Store
 artifacts
 .yarn/
-/.idea
