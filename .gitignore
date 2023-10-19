@@ -3,7 +3,7 @@
 .env
 .tmp
 
-.idea
+/.idea
 
 # dependencies
 /node_modules
