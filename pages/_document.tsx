@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head>
+        <title>zkc & noir</title>
         <link rel='icon' href='../static/icon.png' sizes='any' />
       </Head>
       <body>
