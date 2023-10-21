@@ -24,3 +24,7 @@ or just open [demo app link](https://demo-noir.sybil.center)
 - [`JS library`](https://www.npmjs.com/package/@sybil-center/zkc-o1js) for ZKC with Mina Protocol
 - [`JS library`](https://www.npmjs.com/package/@sybil-center/zkc-core) for base ZKC logic 
 
+## Other demos
+
+- [Passport ZKC with Mina](https://demo-mina.sybil.center)
+
