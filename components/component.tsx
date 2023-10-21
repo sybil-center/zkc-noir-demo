@@ -165,32 +165,40 @@ function Component() {
     <>
       <CredModal credential={zkCred} isOpen={openModal} setIsOpen={setOpenModal} />
       <div className={styles.container}>
-        <div className={"flex flex-col items-center"}>
-          <h1 className={'text-[1.5em] border-b-2 border-white p-1'}>Prove that you're adult person using Zero-Knowledge
-            Credential with <a href={'https://noir-lang.org/'} target='_blank' rel='noreferrer'>Noir</a></h1>
-          <h1 className={'text-[1.5em] text-center mt-2 border-b-2 border-white p-1 w-1/3'}>
-            with help <a href={'https://app.sybil.center/'} target='_blank' rel='noreferrer'>Sybil-Center</a></h1>
+        <div className={'flex flex-col items-center'}>
+          <h1 className={'text-[1.5em] border-b-2 border-white p-1'}>Prove that you're adult person using <a
+            href={'https://noir-lang.org/'} target='_blank' rel='noreferrer'>
+            Noir-flavored </a> Zero-Knowledge Credentials
+          </h1>
+          {/*<h1 className={'text-[1.5em] border-b-2 border-white p-1'}>Prove that you're adult person using Zero-Knowledge*/}
+          {/*  Credential with <a href={'https://noir-lang.org/'} target='_blank' rel='noreferrer'>Noir</a></h1>*/}
+          {/*<h1 className={'text-[1.5em] text-center mt-2 border-b-2 border-white p-1 w-1/3'}>*/}
+          {/*  with help <a href={'https://app.sybil.center/'} target='_blank' rel='noreferrer'>Sybil-Center</a></h1>*/}
         </div>
         {walletComponent()}
         <div className={styles.row}>
           {credComponent()}
           {zkProofComponent()}
         </div>
-        <div className={styles.row}>
-          <a href={"https://github.com/sybil-center/zkc-noir-demo"} target='_blank' rel='noreferrer'>
-          <div className={styles.card}>
-            Source code
-          </div>
-          </a>
-          <div className={styles.card}>
-            Instructional video
-          </div>
-          <a href={'https://github.com/sybil-center/ZKCIPs'} target='_blank' rel='noreferrer'>
+        <div className={"flex flex-col items-center"}>
+          <div className={styles.row}>
+            <a href={'https://github.com/sybil-center/zkc-noir-demo'} target='_blank' rel='noreferrer'>
+              <div className={styles.card}>
+                Source code
+              </div>
+            </a>
             <div className={styles.card}>
-              What is ZK Credentials?
+              Instructional video
             </div>
-          </a>
-
+            <a href={'https://github.com/sybil-center/ZKCIPs'} target='_blank' rel='noreferrer'>
+              <div className={styles.card}>
+                What is ZK Credentials?
+              </div>
+            </a>
+          </div>
+          <div>
+            <a href={"https://app.sybil.center/"} target='_blank' rel='noreferrer'>Crafted by Sybil-Center</a>
+          </div>
         </div>
       </div>
     </>
