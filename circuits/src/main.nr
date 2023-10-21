@@ -86,12 +86,14 @@ struct PassportCred {
     sbj_bd: u64,
     sbj_cc: u16,
     sbj_doc_id: Uint256,
-    sbj_doc_t: u16
+    sbj_doc_t: u16,
+    sbj_fn: Field,
+    sbj_ln: Field
 }
 
 impl PassportCred {
-    fn to_bytes(self) -> [u8; 150] {
-        let mut bytes: [u8; 150] = [0; 150];
+    fn to_bytes(self) -> [u8; 182] {
+        let mut bytes: [u8; 182] = [0; 182];
         let mut count = 0;
         for i in 0..2 {
             bytes[count] = (self.isr_id_t >> (8 - (i * 8))) as u8;
@@ -138,6 +140,16 @@ impl PassportCred {
         }
         for i in 0..2 {
             bytes[count] = (self.sbj_doc_t >> (8 - (i * 8))) as u8;
+            count += 1;
+        }
+        let sbj_fn = self.sbj_fn.to_be_bytes(16);
+        for i in 0..16 {
+            bytes[count] = sbj_fn[i];
+            count += 1;
+        }
+        let sbj_ln = self.sbj_ln.to_be_bytes(16);
+        for i in 0..16 {
+            bytes[count] = sbj_ln[i];
             count += 1;
         }
         bytes
