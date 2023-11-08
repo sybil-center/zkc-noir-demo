@@ -1305,14 +1305,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sybil-center/zkc-core@npm:0.0.5":
-  version: 0.0.5
-  resolution: "@sybil-center/zkc-core@npm:0.0.5"
+"@sybil-center/zkc-core@npm:0.0.9":
+  version: 0.0.9
+  resolution: "@sybil-center/zkc-core@npm:0.0.9"
   dependencies:
-    ieee754: ^1.2.1
-    sort-keys: ^5.0.0
-    uint8arrays: ^4.0.6
-  checksum: 7e3ebd52983d6f8bd0affbb3ebae354c27a5aee807c084874301f8140a6a2824f1b2ce4a0ee9132400fca463a0dbca8d2934726238e584086e4a66ac15e40c45
+    zkc-core: 0.0.4
+  checksum: d8ee967912b5e8f3a935ee18d0449c51f9b10fa585209b8ebcd99d45906b27bfec0e5803a0c61f38e38c26f31e9cbbc1f4412489d8ad9ac674c3919a4bccd305
   languageName: node
   linkType: hard
 
@@ -4939,7 +4937,7 @@ __metadata:
     "@nomicfoundation/hardhat-toolbox": ^2.0.1
     "@nomiclabs/hardhat-ethers": ^2.2.2
     "@nomiclabs/hardhat-etherscan": ^3.0.0
-    "@sybil-center/zkc-core": 0.0.5
+    "@sybil-center/zkc-core": 0.0.9
     "@typechain/ethers-v5": ^10.1.0
     "@typechain/hardhat": ^6.1.2
     "@types/mocha": ^10.0.1
@@ -6987,5 +6985,16 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zkc-core@npm:0.0.4":
+  version: 0.0.4
+  resolution: "zkc-core@npm:0.0.4"
+  dependencies:
+    ieee754: ^1.2.1
+    sort-keys: ^5.0.0
+    uint8arrays: ^4.0.6
+  checksum: 8ffa427d9496f897f9a01b76e387ee89eabac19e386018692287665b53f09ec8d14fd6493a7ac06c9ca6eeaeff3ebce6a8436f07d3b1deaa2dd785e92f5b616d
   languageName: node
   linkType: hard

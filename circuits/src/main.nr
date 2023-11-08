@@ -78,7 +78,7 @@ impl Uint512 {
 struct PassportCred {
     isr_id_t: u16,
     isr_id_k: Uint512,
-    sch: u16,
+    sch: u64,
     isd: u64,
     exd: u64,
     sbj_id_t: u16,
@@ -92,20 +92,11 @@ struct PassportCred {
 }
 
 impl PassportCred {
-    fn to_bytes(self) -> [u8; 182] {
-        let mut bytes: [u8; 182] = [0; 182];
+    fn to_bytes(self) -> [u8; 122] {
+        let mut bytes: [u8; 122] = [0; 122];
         let mut count = 0;
-        for i in 0..2 {
-            bytes[count] = (self.isr_id_t >> (8 - (i * 8))) as u8;
-            count += 1;
-        }
-        let isr_id_k_bytes = self.isr_id_k.to_bytes();
-        for i in 0..isr_id_k_bytes.len() {
-            bytes[count] = isr_id_k_bytes[i];
-            count += 1;
-        }
-        for i in 0..2 {
-            bytes[count] = (self.sch >> (8 - (i * 8))) as u8;
+        for i in 0..8 {
+            bytes[count] = (self.sch >> (56 - (i * 8))) as u8;
             count += 1;
         }
         for i in 0..8 {

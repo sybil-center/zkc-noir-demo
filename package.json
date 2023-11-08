@@ -19,7 +19,7 @@
     "@nomicfoundation/hardhat-toolbox": "^2.0.1",
     "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
-    "@sybil-center/zkc-core": "0.0.5",
+    "@sybil-center/zkc-core": "0.0.9",
     "@typechain/ethers-v5": "^10.1.0",
     "@typechain/hardhat": "^6.1.2",
     "autoprefixer": "^10.4.16",

@@ -1,14 +1,18 @@
 import { ethers } from 'ethers';
-import { PassportCred, Preparator, Proved, TransCredSchema } from '@sybil-center/zkc-core';
+import { AttributeSchema, PassportCred, Preparator, SignSchema, SybilPreparator } from '@sybil-center/zkc-core';
 import * as u8a from 'uint8arrays';
 
-const zkInputSchema: TransCredSchema = {
+const signSchema: SignSchema = {
   isr: {
     id: {
       t: ['uint16'],
       k: ['hex-bytes', 'bytes-uint'],
     },
   },
+  sign: ['hex'],
+};
+
+const attrSchema: AttributeSchema = {
   sch: ['uint16'],
   isd: ['uint64'],
   exd: ['uint64'],
@@ -38,14 +42,25 @@ const zkInputSchema: TransCredSchema = {
 
 const preparator = new Preparator();
 
-export function toZkInput(cred: Proved<PassportCred>) {
-  const proof = cred.proof[0];
-  if (!proof) throw new Error('No proof ZKC proof');
-  const signature = proof.sign;
-  if (cred.isr.id.k !== proof.key) throw new Error(`Invalid ZKC`);
+export function toZkInput(cred: PassportCred) {
+  const preparator = new SybilPreparator();
+  const { proof: { signature } } = preparator.selectProof(cred, {
+    proof: { type: 'Sha256Secp256k1' },
+  });
+
   const [
+    sign,
     isr_id_t,
     isr_id_k,
+  ] = preparator.prepareSign<[string, bigint, bigint]>({
+    signAttributes: signature,
+    signSchema: signSchema,
+  });
+  const attrPrepared = preparator.prepareAttributes<bigint[]>({
+    attributes: cred.attributes,
+    attributesSchema: attrSchema,
+  });
+  const [
     sch,
     isd,
     exd,
@@ -57,12 +72,12 @@ export function toZkInput(cred: Proved<PassportCred>) {
     sbj_doc_t,
     fn,
     ln,
-  ] = preparator.prepare<bigint[]>(cred, zkInputSchema);
+  ] = attrPrepared
   return {
     issuer_id: noir.Uint512.fromNumber(isr_id_k).toZkABI(),
     subject_address: ethers.utils.hexZeroPad(`0x${sbj_id_k.toString(16)}`, 32),
     current_date: new Date().getTime(),
-    sign: noir.Uint512.fromHex(signature).toZkABI(),
+    sign: noir.Uint512.fromHex(sign).toZkABI(),
     cred: {
       isr_id_t: Number(isr_id_t),
       isr_id_k: noir.Uint512.fromNumber(isr_id_k).toZkABI(),

@@ -1,5 +1,5 @@
 import * as u8a from 'uint8arrays';
-import { WalletProof, WalletProvider, ZkcId } from '@sybil-center/zkc-core';
+import { normalizeID, SybilID, SybilWalletProof, WalletProvider } from '@sybil-center/zkc-core';
 
 export interface RequestArguments {
   readonly method: string;
@@ -19,15 +19,15 @@ export class EthWalletProvider implements WalletProvider {
     this.getProof = this.getProof.bind(this);
   }
 
-  async getSubjectId(): Promise<ZkcId> {
+  async getSubjectId(): Promise<SybilID> {
     const address = await this.getAddress();
-    return {
+    return normalizeID({
       t: 1,
       k: address,
-    };
+    });
   };
 
-  async getProof(): Promise<WalletProof> {
+  async getProof(): Promise<SybilWalletProof> {
     const subjectId = await this.getSubjectId();
     return {
       subjectId: subjectId,

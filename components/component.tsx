@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Noir } from '@noir-lang/noir_js';
 import { BarretenbergBackend } from '@noir-lang/backend_barretenberg';
 import circuit from '../circuits/target/noirstarter.json';
-import { PassportCred, Proved, ZkSybil } from '@sybil-center/zkc-core';
+import { PassportCred, ZkSybil } from '@sybil-center/zkc-core';
 import { EthWalletProvider, IEIP1193Provider } from '../service/wallet-provider';
 import { toZkInput } from '../service/tozk-input';
 import styles from '../styles/Home.module.css';
@@ -18,7 +18,7 @@ function Component() {
   const [proofVerified, setProofVerified] = useState(false);
   const [noir, setNoir] = useState<Noir | null>(null);
   const [backend, setBackend] = useState<BarretenbergBackend | null>(null);
-  const [zkCred, setZkCred] = useState<Proved<PassportCred> | null>(null);
+  const [zkCred, setZkCred] = useState<PassportCred | null>(null);
   const [walletProvider, setWalletProvider] = useState<EthWalletProvider | null>(null);
   const [address, setAddress] = useState('');
   const [openModal, setOpenModal] = useState(false);
@@ -57,7 +57,9 @@ function Component() {
   async function getZkCred() {
     if (!walletProvider) throw new Error(`Connect wallet first`);
     toast.promise(new Promise(async (resolve) => {
-      const cred = await sybil.credential('passport', await walletProvider.getProof(), {});
+      const cred = await sybil.credential('passport', await walletProvider.getProof(), {
+        proofTypes: ["Sha256Secp256k1"]
+      });
       setZkCred(cred);
       resolve(cred);
     }), {
@@ -98,7 +100,6 @@ function Component() {
 
   function showCredModal() {
     setOpenModal(true);
-
   }
 
   useEffect(() => {
